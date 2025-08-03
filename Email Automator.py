@@ -167,8 +167,8 @@ def send_individual_email(row, attachments):
 # Load recipient data
 df = pd.read_csv('spain-seed-investors-23-07-2025.csv')
 
-# Send only to first 100 emails
-df = df.head(100)
+# Send only to first 10 emails
+df = df.head(10)
 
 attachments = ['Montreux Financial Pitch.pdf']
 total_email_sent = 0
