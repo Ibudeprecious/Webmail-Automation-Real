@@ -37,11 +37,11 @@ body_template = '''
 <body>
   <div class="email-content">
     <p>Dear {name} team,</p>
-    <p>As a Europe-based fintech startup, we’ve long admired your role in shaping Europe’s tech ecosystem. With {investments}+ investments and {exits}+ exits, your track record of backing bold innovation has been a real inspiration to us at Montreux Financial.</p>
+    <p>As a Europe-based fintech startup, we’ve long admired your role in shaping Europe’s tech ecosystem. Your track record of backing bold innovation has been a real inspiration to us at Montreux Financial.</p>
     <p> However, we noticed a gap in the European Banking System. </p>
     <p> Did you know that despite having 4,886 traditional banks in Europe, there are only 77 neobanks that are serving a rapidly growing segment of digital-native consumers, freelancers, and SMEs? </p>
     <p> This leaves users juggling multiple disconnected apps for banking, crypto, and investing—an outdated experience in a digital-first world. </p>
-    <p> We are determined to fill this gap. Montreux Financial is a next-gen, AI-powered neobank built in Spain for Europe. We unify: </p>
+    <p> We are determined to fill this gap. Montreux Financial is a next-gen, AI-powered neobank. We unify: </p>
     <ul>
       <strong> <li> Instant IBAN accounts + debit cards </li></strong>
       <strong> <li> Real-time crypto trading with AI portfolio optimization </li></strong>
@@ -54,7 +54,7 @@ body_template = '''
       We’re targeting a €500B+ converging market and are already in discussions with EU regulators. Our team has fintech expertise —including a previous exit—and we’re currently raising a €380K pre-seed round to complete development and launch.
     </p>
     <p>
-      We’d love to explore if Montreux aligns with Wayra’s thesis. Would you be open to a 15-minute call next week?
+      We’d love to explore if Montreux aligns with {name}'s thesis. Would you be open to a 15-minute call next week?
     <p>
     <p>👉 <a href="https://drive.google.com/drive/folders/12xlbSW1g_1zuKzQMf6T68PjBbb6Zt3bJ"> View our Deck </a> </p>
     <p> Looking forward to hearing your thoughts. </p>
@@ -119,12 +119,12 @@ sent_info = []
 def send_individual_email(row, attachments):
     name = row['Organization/Person Name']
     email = row['Contact Email']
-    website = row['Website'] # Adjust column name if needed
+    # website = row['Website'] # Adjust column name if needed
     subject = subject_template.format(name=name)
     body = body_template.format(
         name=name,
-        investments=row['Number of Investments'],
-        exits=row['Number of Exits']
+        # investments=row['Number of Investments'],
+        # exits=row['Number of Exits']
     )
 
     start = time.time()
@@ -155,7 +155,7 @@ def send_individual_email(row, attachments):
         elapsed = time.time() - start
         print(f"✅ Email sent to: {email}")
         print(f"⏱ Sent to {email} in {elapsed:.2f} seconds")
-        sent_info.append({'Name': name, 'Website': website})
+        sent_info.append({'Name': name, 'Email': email})
         return True
 
     except Exception as e:
@@ -165,10 +165,10 @@ def send_individual_email(row, attachments):
         return False
 
 # Load recipient data
-df = pd.read_csv('spain-seed-investors-23-07-2025.csv')
+df = pd.read_csv('europe-fintech-pre-seed-investors-14-09-2025.csv')
 
-# Send only to first 10 emails
-df = df.head(10)
+# Send only to first 135 emails
+df = df.tail(135)
 
 attachments = ['Montreux Financial Pitch.pdf']
 total_email_sent = 0
