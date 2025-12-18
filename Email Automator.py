@@ -13,7 +13,7 @@ from concurrent.futures import ThreadPoolExecutor, as_completed
 
 load_dotenv()
 
-subject_template = 'Pre-seed Investment Opportunity for {name}: AI-Powered Neobank Built in Spain.'
+subject_template = 'Investment Opportunity: FintechsDev – The Omni-Channel Payment Gateway Transforming SME Banking'
 
 body_template = '''
 <!DOCTYPE html>
@@ -36,35 +36,45 @@ body_template = '''
 </head>
 <body>
   <div class="email-content">
-    <p>Dear {name} team,</p>
-    <p>As a Europe-based fintech startup, we’ve long admired your role in shaping Europe’s tech ecosystem. Your track record of backing bold innovation has been a real inspiration to us at Montreux Financial.</p>
-    <p> However, we noticed a gap in the European Banking System. </p>
-    <p> Did you know that despite having 4,886 traditional banks in Europe, there are only 77 neobanks that are serving a rapidly growing segment of digital-native consumers, freelancers, and SMEs? </p>
-    <p> This leaves users juggling multiple disconnected apps for banking, crypto, and investing—an outdated experience in a digital-first world. </p>
-    <p> We are determined to fill this gap. Montreux Financial is a next-gen, AI-powered neobank. We unify: </p>
+    <p>Hi {name} team,</p>
+    <p>I’m reaching out to introduce FintechsDev, an omni-channel payment and business banking platform built to solve a massive and persistent problem for European SMEs. </p>
+    <p>Across the region, more than 25 million SMEs struggle with slow onboarding, fragmented tools, hidden banking fees, and outdated manual financial operations. With 65% dissatisfied with their current bank, the market is primed for a modern, integrated alternative. </p>
+    <p> FintechsDev delivers that solution: </p>
     <ul>
-      <strong> <li> Instant IBAN accounts + debit cards </li></strong>
-      <strong> <li> Real-time crypto trading with AI portfolio optimization </li></strong>
-      <strong> <li> Fractional investing in stocks, commodities, and digital assets </li></strong>
+      <strong> <li> Business accounts open in minutes, not weeks </li></strong>
+      <strong> <li> Instant IBANs and physical/virtual cards </li></strong>
+      <strong> <li> 120+ global and local payment methods </li></strong>
+      <strong> <li> Real-time expense tracking and automated accounting </li></strong>
+      <strong> <li> Multicurrency support with transparent, competitive FX </li></strong>
+      <strong> <li> No hidden charges and a pay-for-what-you-use model </li></strong>
+    </ul>
+    <p> Our platform targets IT freelancers, startups, and SMEs with 2–150 employees, tapping into a €190B SME banking market with high churn and clear unmet needs. Competitors like Stripe, Moonpay, and Revolut each miss critical components we provide in one unified system. </p>
+    <p> Our rollout plan is direct and execution-ready: </p>
+    <ul>
+      <strong> <li> Establish operations with a 20–25-person local team </li></strong>
+      <strong> <li> Secure enterprise clients through existing partnerships </li></strong>
+      <strong> <li> Onboard 800+ businesses and 25,000+ users locally </li></strong>
+      <strong> <li> Expand EU-wide, then into the USA, EMEA, and APAC </li></strong>
+      <strong> <li> Scale to 350–400 employees to support global growth </li></strong>
     </ul>
     <p>
-      This is an all-in-one unified, <strong> mobile-first platform. </strong>
+      We are currently raising €450,000 in seed funding, allocated to licensing, product development, gateway launch, and a targeted marketing campaign. Our payment gateway is scheduled for rollout in 5–7 months.
     </p>
     <p>
-      We’re targeting a €500B+ converging market and are already in discussions with EU regulators. Our team has fintech expertise —including a previous exit—and we’re currently raising a €380K pre-seed round to complete development and launch.
+      I’d welcome the chance to share our roadmap and discuss how we can align this opportunity with your investment thesis.
     </p>
     <p>
-      We’d love to explore if Montreux aligns with {name}'s thesis. Would you be open to a 15-minute call next week?
+      Would you be available for a brief call this week or next?
     <p>
-    <p>👉 <a href="https://drive.google.com/drive/folders/12xlbSW1g_1zuKzQMf6T68PjBbb6Zt3bJ"> View our Deck </a> </p>
-    <p> Looking forward to hearing your thoughts. </p>
+
     <p>
-      Best regards,<br>
-      <b>Pavel Pravosud</b> <br>
-      Founder & CEO - Montreux Financial<br>
-      📞 +34 650 374 849 (Signal and WhatsApp)<br>
-      ✉️ investors@fintechsdev.com <br>
-      <br>
+      Best regards, <br>
+      <strong> Pavel Pravosud <strong> <br>
+      Founder & CEO – FintechsDev <br>
+      +34 650 374 849 <br>
+      WhatsApp at wa.me/+34650374849 <br>
+      investors@fintechsdev.com <br>
+      www.aldriv.com <br>
     </p> 
   </div>
 </body>
@@ -165,12 +175,13 @@ def send_individual_email(row, attachments):
         return False
 
 # Load recipient data
-df = pd.read_csv('europe-fintech-pre-seed-investors-14-09-2025.csv')
+df = pd.read_csv('newlist.csv')
 
-# Send only to first 135 emails
-df = df.tail(135)
+# Send only to first 250 emails
+df = df.tail(250)
 
-attachments = ['Montreux Financial Pitch.pdf']
+
+attachments = ['FintechsDev+ Omni-Channel Payment Gateway 2024 (2).pptx']
 total_email_sent = 0
 start_time = time.time()
 
