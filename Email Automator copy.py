@@ -66,7 +66,6 @@ body_template = '''
     <p>
       Would you be available for a brief call this week or next?
     <p>
-
     <p> Here is a link to our pitch deck, do well to check it out. <a href="https://drive.google.com/drive/folders/1-AoKFaJ7-zvkGq4QhvIgAJdbEDrOYuHX">Click here</a>
     </p>
 
@@ -93,8 +92,10 @@ def connect_smtp():
 
 sent_info = []
 
+smtp = connect_smtp()
+
 # --- Function to send individual emails ---
-def send_individual_email(row):
+def send_individual_email(row, smtp):
     name = row['Organization/Person Name']
     email = row['Contact Email']
     # website = row['Website'] # Adjust column name if needed
@@ -107,7 +108,6 @@ def send_individual_email(row):
 
     start = time.time()
     try:
-        smtp = connect_smtp()
         imap_local = imaplib.IMAP4_SSL('imap.fatcow.com')
         imap_local.login(os.getenv('EMAIL_BOLU_EMAIL'), os.getenv('EMAIL_BOLU_PASS'))
 
@@ -128,7 +128,6 @@ def send_individual_email(row):
 
         smtp.sendmail(msg['From'], msg['To'], msg.as_string())
         imap_local.append('INBOX.Sent', '', imaplib.Time2Internaldate(time.time()), msg.as_bytes())
-        smtp.quit()
         imap_local.logout()
         elapsed = time.time() - start
         print(f"✅ Email sent to: {email}")
@@ -146,19 +145,18 @@ def send_individual_email(row):
 df = pd.read_csv('newlist.csv')
 
 # Send only to first 250 emails
-df = df.head(245)
+df = df.head(226)
 
 
 # attachments = ['FintechsDev+ Omni-Channel Payment Gateway 2024 (2).pptx']
 total_email_sent = 0
 start_time = time.time()
 
-with ThreadPoolExecutor(max_workers=1) as executor:
-    futures = [executor.submit(send_individual_email, row) for _, row in df.iterrows()]
-    for i, future in enumerate(as_completed(futures)):
-        if future.result():
-            total_email_sent += 1
+for _, row in df.iterrows():
+    if send_individual_email(row, smtp):
+        total_email_sent += 1
 
+smtp.quit()
 # Save sent info to new CSV
 pd.DataFrame(sent_info).to_csv('sent_names_websites.csv', index=False)
 
